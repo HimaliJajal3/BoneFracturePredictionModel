@@ -129,9 +129,6 @@ natsort==8.4.0
 nbclient==0.10.2
 nbconvert==7.16.6
 nbformat==5.10.4
-neptune==1.13.0
-neptune-client==1.13.0
-neptune-notebooks==0.9.3
 nest-asyncio==1.6.0
 networkx==3.4.2
 notebook==7.3.2
