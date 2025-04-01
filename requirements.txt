@@ -59,4 +59,6 @@ pytest
 pytest-asyncio
 nbresult
 
+
 streamlit
+setuptools
