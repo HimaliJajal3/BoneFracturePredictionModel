@@ -9,7 +9,7 @@ from streamlit_extras.metric_cards import style_metric_cards
 
 
 
-st.set_page_config(layout="wide")
+# st.set_page_config(layout="wide")
 style_metric_cards(border_left_color = "#365370", box_shadow=False)
 
 st.markdown(
