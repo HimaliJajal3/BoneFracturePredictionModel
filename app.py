@@ -24,18 +24,18 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.title("Bone Fracture Prediction")
+st.title("Bone Fracture Detection & Analysis")
 # st.write("---")
-st.write("Submit Details: Name & Image Upload")
+st.write("Enter Patient Details & Upload X-ray")
 
 # Initialize session state for storing submissions
 if "submissions" not in st.session_state:
     st.session_state.submissions = []  # Stores last 10 submissions
 
 # Expander for input
-with st.popover("Click to enter details", use_container_width=True):
-    name = st.text_input("Enter name")
-    uploaded = st.file_uploader("Upload an X-ray image", type=["jpg", "jpeg", "png"])
+with st.popover("Enter Patient Details", use_container_width=True):
+    name = st.text_input("Patient name")
+    uploaded = st.file_uploader("Upload Patient X-ray", type=["jpg", "jpeg", "png"])
 
     # Submit Button to store data in session state
     if name and uploaded and st.button("Submit"):
@@ -96,23 +96,22 @@ if st.session_state.submissions:
     # Column 1: Patient Details & Images
     with col1:
         # st.button(f"Patient\n# **{name}**", use_container_width=True)
-        st.metric(label="Patient Name", value=f'{name}', label_visibility="visible", border=True )
+        st.metric(label="Patient Name:", value=f'{name}', label_visibility="visible", border=True )
         # st.write("---")
-        st.write("**Original**")
+        st.write("**Uploaded X-ray**")
         st.image(latest_image, width=FIXED_WIDTH)
         # st.write("---")
         # st.write("Masked Image")
         # st.image(masked_image)
 
 
-
     # Column 2: Detection & Processed Image
     with col2:
         if_detected = results[0].boxes is not None and len(results[0].boxes) != 0
         # st.button(f"Fracture Detected\n# **{'Yes' if if_detected else 'No'}**", use_container_width=True)
-        st.metric(label="Fracture Detected", value=f"{'Yes' if if_detected else 'No'}", border=True)
+        st.metric(label="Fracture Identified:", value=f"{'Yes' if if_detected else 'No'}", border=True)
         # st.write("---")
-        st.write("**Results**")
+        st.write("**Detection Output**")
         st.image(annotated_image, width=FIXED_WIDTH)
 
 
@@ -121,12 +120,12 @@ if st.session_state.submissions:
     with col3:
         if conf:
             # st.button(f"Avg Prediction Accuracy\n# **{conf}**", use_container_width=True)
-            st.metric(label="Avg Prediction Accuracy", value=f"{conf}",  border=True)
+            st.metric(label="Prediction Confidence:", value=f"{conf}",  border=True)
 
         st.write("---")
-        st.write("**Export Patient Data**")
+        st.write("**Download Report**")
         st.button("Download PDF")
-        st.write("**Patient History**")
+        st.write("**Previous Diagnosis**")
         if len(st.session_state.submissions) > 0:
             for i, (submitted_name, _) in enumerate(st.session_state.submissions):
                 st.button(f"{i+1}. {submitted_name}")
