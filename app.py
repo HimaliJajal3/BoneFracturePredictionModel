@@ -9,7 +9,7 @@ from streamlit_extras.metric_cards import style_metric_cards
 
 
 
-# st.set_page_config(layout="wide")
+st.set_page_config(layout="wide")
 style_metric_cards(border_left_color = "#365370", box_shadow=False)
 
 st.markdown(
@@ -24,16 +24,16 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.title("Bone Fracture Detection & Analysis")
-# st.write("---")
-st.write("Enter Patient Details & Upload X-ray")
+st.title("**Bone Fracture Detection**")
+
+st.write("**For radiologists and orthopedic specialists**")
 
 # Initialize session state for storing submissions
 if "submissions" not in st.session_state:
     st.session_state.submissions = []  # Stores last 10 submissions
 
 # Expander for input
-with st.popover("Enter Patient Details", use_container_width=True):
+with st.expander(label="**Enter Patient Details**",expanded=True    ):
     name = st.text_input("Patient name")
     uploaded = st.file_uploader("Upload Patient X-ray", type=["jpg", "jpeg", "png"])
 
@@ -44,10 +44,8 @@ with st.popover("Enter Patient Details", use_container_width=True):
         st.session_state.submissions = st.session_state.submissions[:5]  # Keep only last 10
         st.rerun()  # Refresh UI to update state
 
-
-# st.write("---")
+#columns
 col1, col2, col3 = st.columns([2,2,1])
-# col4, col5, col6 = st.columns([2,2,1])
 
 # Load YOLO model
 model = YOLO('best.pt')
