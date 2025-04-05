@@ -60,6 +60,7 @@ if st.session_state.submissions:
     image_np = np.array(image).astype(np.uint8)
     image_bgr = cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR)
 
+
     # YOLO Prediction
     results = model.predict(image_bgr, imgsz=(640,640), save_conf=False)
 
